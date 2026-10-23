@@ -1,0 +1,8 @@
+target
+.git
+.idea
+.vscode
+.cursor
+*.iml
+postman
+README.md

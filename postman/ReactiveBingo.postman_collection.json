@@ -1,0 +1,156 @@
+{
+  "info": {
+    "name": "Reactive Bingo API",
+    "description": "Collection completa da API reativa de Bingo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "playerId",
+      "value": ""
+    },
+    {
+      "key": "roundId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Players",
+      "item": [
+        {
+          "name": "Create player",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  pm.collectionVariables.set('playerId', pm.response.json().id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Enzo\",\n  \"email\": \"enzo@email.com\"\n}"
+            },
+            "url": "{{baseUrl}}/players"
+          }
+        },
+        {
+          "name": "List players",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/players"
+          }
+        },
+        {
+          "name": "Get player by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/players/{{playerId}}"
+          }
+        },
+        {
+          "name": "Update player",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Enzo Atualizado\",\n  \"email\": \"enzo@email.com\"\n}"
+            },
+            "url": "{{baseUrl}}/players/{{playerId}}"
+          }
+        },
+        {
+          "name": "Delete player",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/players/{{playerId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rounds",
+      "item": [
+        {
+          "name": "Create round",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  pm.collectionVariables.set('roundId', pm.response.json().id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rounds"
+          }
+        },
+        {
+          "name": "List rounds",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rounds"
+          }
+        },
+        {
+          "name": "Get round by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rounds/{{roundId}}"
+          }
+        },
+        {
+          "name": "Generate bingo card",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rounds/{{roundId}}/bingo-card/{{playerId}}"
+          }
+        },
+        {
+          "name": "Generate number",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rounds/{{roundId}}/generate-number"
+          }
+        },
+        {
+          "name": "Current number",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rounds/{{roundId}}/current-number"
+          }
+        }
+      ]
+    }
+  ]
+}

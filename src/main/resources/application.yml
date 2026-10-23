@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: reactive-bingo
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/reactive-bingo}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.enzobf.reactivebingo: INFO
+    org.springframework.data.mongodb: INFO
